@@ -5,8 +5,11 @@ from .models import Mymodel
 
 class MymodelTestCases(TestCase):
     def setUp(self):
-        Mymodel.objects.create(name="vinayak", email="gaikwad@gmail.com", phone=2147483647)
+
+        Mymodel.objects.create(name="vinayak", email="gaikwad@gmail.com",
+                               phone=2147483647)
         Mymodel.objects.create(name="anand", email="anand@gmail.com", phone=1)
+
     def test_create_success(self):
         vinayak_name = Mymodel.objects.get(name__icontains="vinayak")
         anand_name = Mymodel.objects.get(name__icontains="anand")
@@ -28,4 +31,4 @@ class MymodelTestCases(TestCase):
         vinayak_name = Mymodel.objects.get(name__icontains="Vinayak")
         vinayak_name.delete()
         is_exists = Mymodel.objects.filter(name__icontains="Vinayak").exists()
-        self.assertEqual(is_exists,False)
+        self.assertEqual(is_exists, False)

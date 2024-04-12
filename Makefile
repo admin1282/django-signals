@@ -17,3 +17,8 @@ shell:
 .PHONY: test
 test:
 	poetry run pytest core
+
+
+.PHONY: flake8
+flake8:
+	poetry run  flake8
