@@ -1,11 +1,5 @@
-name: Django Test
-
-on:
-  push:
-    branches: ["main"]
-
-  pull_request:
-    branches: ["main"]
+name: Quality Assurance
+on: [pull_request, workflow_call]
 
 jobs:
     quality-assurance:
@@ -14,19 +8,16 @@ jobs:
       container: python:3.11.4-buster
       services:
         db:
-          image: kartoza/postgis:15-3.4
+          image: postgres:15.4-alpine
           env:
             POSTGRES_DB: localhost
             POSTGRES_USER: localhost
             POSTGRES_PASSWORD: localhost
 
       steps:
+
         - uses: actions/checkout@v2
-
-        - name: Create .env1 directory if it doesn't exist
-          run: mkdir -p backend/config
-
-        - name: Create .env1
+        - name: Create .env
           run: |
             ls -la
             echo "DJANGO_SECRET_KEY=django-insecure-(_f-p(nl=#ex$sjj8re!!+kgj)93!nldy69k1$7j-t!$%ap*^l
@@ -35,8 +26,8 @@ jobs:
             POSTGRES_PASSWORD=localhost            
             DJANGO_DATABASE_HOST=db
             DJANGO_DATABASE_PORT=5432
-            " > backend/config/.env1
-            cat backend/config/.env1
+            " > my_burgo_backend/config/.env
+            cat my_burgo_backend/config/.env
 
         - name: Install Poetry
           uses: abatilo/actions-poetry@v2.0.0
@@ -47,10 +38,7 @@ jobs:
           run: git config --global --add safe.directory '*'
 
         - name: Install Dependencies
-          run: make install && poetry add psycopg2-binary
+          run: make install && make install-pre-commit
 
-#        - name: Lint
-#          run: make lint
-
-        - name: Test
-          run: make test
+        - name: Lint
+          run: make lint
