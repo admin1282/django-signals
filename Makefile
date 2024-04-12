@@ -1,14 +1,14 @@
 .PHONY: install
 install:
-	poetry install
+	poetry install --no-root
 
-.PHONY: install-pre-commit
-install-pre-commit:
-	poetry run pre-commit uninstall; poetry run pre-commit install
+#.PHONY: install-pre-commit
+#install-pre-commit:
+#	poetry run pre-commit uninstall; poetry run pre-commit install
 
-.PHONY: lint
-lint:
-	poetry run pre-commit run
+#.PHONY: lint
+#lint:
+#	poetry run pre-commit run
 
 .PHONY: migrate
 migrate:
