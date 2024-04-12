@@ -22,7 +22,7 @@ jobs:
 
       steps:
         - uses: actions/checkout@v2
-#        - name: Create .env
+        - name: Create .env
           run: |
             ls -la
             echo "DJANGO_SECRET_KEY=django-insecure-(_f-p(nl=#ex$sjj8re!!+kgj)93!nldy69k1$7j-t!$%ap*^l
