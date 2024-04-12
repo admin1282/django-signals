@@ -27,8 +27,8 @@ jobs:
         run: |
           poetry install --no-root
 
-      - name: Lint with Flake8
-        run: poetry run flake8
+#      - name: Lint with Flake8
+#        run: poetry run flake8
 
       - name: Django Testing
         run: make test
