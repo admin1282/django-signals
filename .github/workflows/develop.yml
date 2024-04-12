@@ -22,7 +22,7 @@ jobs:
 
       steps:
         - uses: actions/checkout@v2
-        - name: Create .env
+        - name: Create .env1
           run: |
             ls -la
             echo "DJANGO_SECRET_KEY=django-insecure-(_f-p(nl=#ex$sjj8re!!+kgj)93!nldy69k1$7j-t!$%ap*^l
@@ -31,8 +31,8 @@ jobs:
             POSTGRES_PASSWORD=localhost            
             DJANGO_DATABASE_HOST=db
             DJANGO_DATABASE_PORT=5432
-            " > backend/config/.env
-            cat backend/config/.env
+            " > backend/config/.env1
+            cat backend/config/.env1
 
         - name: Install Poetry
           uses: abatilo/actions-poetry@v2.0.0
