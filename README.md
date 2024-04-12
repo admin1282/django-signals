@@ -1,4 +1,4 @@
-# **SETUP 
+# **SETUP**
 
 > apps.py
 >> class AppConfig(Appconfig):
@@ -11,7 +11,7 @@
 
 >__init__.py
 >>
->> default_app_config='appname.apps.AppConfig
+>> default_app_config='appname.apps.AppConfig'
 
 #### create signals.py file 
 
@@ -82,5 +82,4 @@
 >     signals.notification.sent(sender=None)
 >     request=request, user=['vinayak','anand']
 >     return render.......
-
 
