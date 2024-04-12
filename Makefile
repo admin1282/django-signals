@@ -1,3 +1,16 @@
+.PHONY: install
+install:
+	poetry install --no-root
+
+#.PHONY: install-pre-commit
+#install-pre-commit:
+#	poetry run pre-commit uninstall; poetry run pre-commit install --hook-type commit-msg
+
+.PHONY: lint
+lint:
+	poetry run pre-commit run
+
+
 .PHONY: run-server
 run-server:
 	poetry run python core/manage.py runserver

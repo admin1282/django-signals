@@ -47,7 +47,7 @@ jobs:
           run: git config --global --add safe.directory '*'
 
         - name: Install Dependencies
-          run: make install --no-root && make install-pre-commit
+          run: make install
 
         - name: Lint
           run: make lint
