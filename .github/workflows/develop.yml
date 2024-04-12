@@ -34,7 +34,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install poetry 
-        make install and make update
+        make install 
         
 
     - name: Set up PostgreSQL
