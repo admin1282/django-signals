@@ -6,9 +6,9 @@ install:
 #install-pre-commit:
 #	poetry run pre-commit uninstall; poetry run pre-commit install --hook-type commit-msg
 
-.PHONY: lint
-lint:
-	poetry run pre-commit run
+#.PHONY: lint
+#lint:
+#	poetry run pre-commit run
 
 
 .PHONY: run-server
