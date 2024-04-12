@@ -47,7 +47,7 @@ jobs:
           run: git config --global --add safe.directory '*'
 
         - name: Install Dependencies
-          run: make install
+          run: make install && poetry add psycopg2-binary
 
 #        - name: Lint
 #          run: make lint
