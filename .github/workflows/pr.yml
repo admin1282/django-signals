@@ -1,0 +1,47 @@
+name: Quality Assurance
+on: [pull_request, workflow_call]
+
+jobs:
+    quality-assurance:
+      name: Quality Assurance
+      runs-on: ubuntu-latest
+      container: python:3.11.4-buster
+      services:
+        db:
+          image: kartoza/postgis:15-3.4
+          env:
+            POSTGRES_DB: localhost
+            POSTGRES_USER: localhost
+            POSTGRES_PASSWORD: localhost
+
+      steps:
+
+        - uses: actions/checkout@v2
+        - name: Create .env
+          run: |
+            ls -la
+            echo "DJANGO_SECRET_KEY=django-insecure-(_f-p(nl=#ex$sjj8re!!+kgj)93!nldy69k1$7j-t!$%ap*^l
+            POSTGRES_DB=localhost
+            POSTGRES_USER=localhost
+            POSTGRES_PASSWORD=localhost            
+            DJANGO_DATABASE_HOST=db
+            DJANGO_DATABASE_PORT=5432
+            " > backend/config/.env
+            cat backend/config/.env
+
+        - name: Install Poetry
+          uses: abatilo/actions-poetry@v2.0.0
+          with:
+            poetry-version: 1.4.2
+
+        - name: Git Config
+          run: git config --global --add safe.directory '*'
+
+        - name: Install Dependencies
+          run: make install && make install-pre-commit
+
+        - name: Lint
+          run: make lint
+
+        - name: Test
+          run: make test
