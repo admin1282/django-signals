@@ -19,6 +19,11 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+          source $HOME/.poetry/env
+
       - name: Install dependencies
         run: |
           poetry install --no-root
