@@ -1,30 +1,30 @@
-version: '3.8'
-
-services:
-
-  db:
-    image: postgres:15.4-alpine
-    restart: unless-stopped
-    ports:
-      - '5432:5432'
-    env_file: core/config/.env
-    volumes:
-      - postgresql-data:/var/lib/postgresql/data
-
-  app:
-    build: .
-    restart: unless-stopped
-    ports:
-      - '8000:8000'
-    depends_on:
-      - db
-    env_file: core/config/.env
-    environment:
-      DJANGO_DATABASE_HOST: db
-    command: sh -c "make migrate && poetry run python3.11 core/manage.py runserver 0.0.0.0:8000"
-
-
-
-volumes:
-  postgresql-data:
-    driver: local
+#version: '3.8'
+#
+#services:
+#
+#  db:
+#    image: postgres:15.4-alpine
+#    restart: unless-stopped
+#    ports:
+#      - '5432:5432'
+#    env_file: core/config/.env
+#    volumes:
+#      - postgresql-data:/var/lib/postgresql/data
+#
+#  app:
+#    build: .
+#    restart: unless-stopped
+#    ports:
+#      - '8000:8000'
+#    depends_on:
+#      - db
+#    env_file: core/config/.env
+#    environment:
+#      DJANGO_DATABASE_HOST: db
+#    command: sh -c "make migrate && poetry run python3.11 core/manage.py runserver 0.0.0.0:8000"
+#
+#
+#
+#volumes:
+#  postgresql-data:
+#    driver: local
