@@ -8,27 +8,45 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    quality-assurance:
+      name: Quality Assurance
+      runs-on: ubuntu-latest
+      container: python:3.11.4-buster
+      services:
+        db:
+          image: kartoza/postgis:15-3.4
+          env:
+            POSTGRES_DB: localhost
+            POSTGRES_USER: localhost
+            POSTGRES_PASSWORD: localhost
 
-    steps:
-      - uses: actions/checkout@v3
+      steps:
+        - uses: actions/checkout@v2
+        - name: Create .env
+          run: |
+            ls -la
+            echo "DJANGO_SECRET_KEY=django-insecure-(_f-p(nl=#ex$sjj8re!!+kgj)93!nldy69k1$7j-t!$%ap*^l
+            POSTGRES_DB=localhost
+            POSTGRES_USER=localhost
+            POSTGRES_PASSWORD=localhost            
+            DJANGO_DATABASE_HOST=db
+            DJANGO_DATABASE_PORT=5432
+            " > backend/config/.env
+            cat backend/config/.env
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
+        - name: Install Poetry
+          uses: abatilo/actions-poetry@v2.0.0
+          with:
+            poetry-version: 1.4.2
 
-      - name: Install Poetry
-        run: |
-          pip install poetry
+        - name: Git Config
+          run: git config --global --add safe.directory '*'
 
-      - name: Install dependencies
-        run: |
-          poetry install --no-root
+        - name: Install Dependencies
+          run: make install && make install-pre-commit
 
-#      - name: Lint with Flake8
-#        run: poetry run flake8
+        - name: Lint
+          run: make lint
 
-#      - name: Django Testing
-#        run: make test
+        - name: Test
+          run: make test
